@@ -1,27 +1,29 @@
 <template>
   <div id="app">
-    <input type="text" v-model="searched" :key="movies.id"/> 
+    <input type="text" v-model="searched" /> 
     
     <button @click="getMovies(); getTvSeries();">
     </button>
 
     <ul id="films">
-      <li v-for="movie in movies" :key="movie.id">
+      <li v-for="movie in movies" :key="movie.id" class="cards">
         <div>
           {{movie.title}} <br>
           {{movie.original_title}} <br>
           {{movie.original_language}} <br>
+          <img :src= "`..src/assets/${movie.original_language}.png`" alt=""> <br> alt=""> <br>
           {{movie.vote_average}}
         </div>
       </li>
     </ul>
 
     <ul id="serie-tv">
-      <li v-for="serie in series" :key="serie.id">
+      <li v-for="serie in series" :key="serie.id" class="cards">
         <div>
          {{serie.name}} <br>
          {{serie.original_name}} <br>
          {{serie.original_language}} <br>
+         <img :src="`..src/assets/${serie.original_language}.png`" alt=""> <br>
          {{serie.vote_average}}
         </div>
       </li>
@@ -45,7 +47,7 @@ export default {
       seriesEP: "/search/tv",
       searched: "",
       movies: [],
-      series: []
+      series: [],
     };
   },
 
@@ -68,7 +70,7 @@ export default {
         `${this.baseUri}${this.seriesEP}?api_key=${this.apiKey}&query=${this.searched}`
       )
       .then((response) => {
-        this.tvSeries = response.data.results;
+        this.series = response.data.results;
       });
     }
     
@@ -77,5 +79,15 @@ export default {
 </script>
 
 <style lang="scss">
+
+img {
+  height: 90px;
+  width: 100px;
+}
+
+.cards {
+  height: 300px;
+  width: 250px;
+}
 
 </style>

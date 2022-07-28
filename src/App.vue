@@ -1,28 +1,33 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    
+    
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import axios from "axios"
+
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  data(){
+    return {
+      baseUri: "https://api.themoviedb.org/3",
+      apiKey: "1c5e26a324a176f1263f8bbddd9a8b1f",
+      queryValue: "anelli"
+    }
+
+  },
+  components: {},
+  created(){
+    axios.get("baseUri/search/movie?api_key=apiKey&query=anelli")
   }
 }
 </script>
 
 <style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  
 }
 </style>

@@ -11,10 +11,10 @@
           {{movie.title}} <br>
           {{movie.original_title}} <br>
           {{movie.original_language}} <br>
-          <img :src= "`..src/assets/${movie.original_language}.png`" alt=""> <br> alt=""> <br>
+          <img :src= "`./assets/${movie.original_language}.png`"> <br> 
           {{movie.vote_average}}
         </div>
-      </li>
+      </li> <!--./assets/logo.png-->
     </ul>
 
     <ul id="serie-tv">
@@ -23,7 +23,7 @@
          {{serie.name}} <br>
          {{serie.original_name}} <br>
          {{serie.original_language}} <br>
-         <img :src="`..src/assets/${serie.original_language}.png`" alt=""> <br>
+         <img :src="`./assets/${serie.original_language}.png`"> <br>
          {{serie.vote_average}}
         </div>
       </li>

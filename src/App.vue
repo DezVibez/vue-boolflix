@@ -12,9 +12,10 @@
           {{movie.original_title}} <br>
           {{movie.original_language}} <br>
           <img :src=flagElement(movie)> <br> 
+          <!--./assets/en.png-->
           {{movie.vote_average}}
         </div>
-      </li> <!--./assets/logo.png-->
+      </li> 
     </ul>
 
     <ul id="serie-tv">
@@ -24,6 +25,7 @@
          {{serie.original_name}} <br>
          {{serie.original_language}} <br>
          <img :src=flagElement(serie)> <br>
+         <!--./assets/it.png-->
          {{serie.vote_average}}
         </div>
       </li>
@@ -53,7 +55,7 @@ export default {
 
   computed: {
     flagElement(elemento){
-      return require(`../assets/${elemento.original_language}.png`)
+      return require(`..src/assets/${elemento.original_language}.png`)
     },
     
   },

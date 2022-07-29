@@ -2,16 +2,19 @@
   <div id="app">
     <input type="text" v-model="searched" /> 
     
-    <button @click="getMovies(); getTvSeries();">
+    <button @click="getMovies(); getTvSeries();">Cerca
     </button>
 
     <ul id="films">
       <li v-for="movie in movies" :key="movie.id" class="cards">
         <div>
-          {{movie.title}} <br>
-          {{movie.original_title}} <br>
-          {{movie.original_language}} <br>
-          <img :src=flagElement(movie)> <br> 
+          <div>{{movie.title}} </div>
+          {{movie.original_title}} 
+          <div>
+            <img v-if="flags.includes(movie.original_language)" :src="flagElement(movie.original_language)">
+            <span v-else>{{movie.original_language}} </span>
+          </div>
+          
           <!--./assets/en.png-->
           {{movie.vote_average}}
         </div>
@@ -24,8 +27,8 @@
          {{serie.name}} <br>
          {{serie.original_name}} <br>
          {{serie.original_language}} <br>
-         <img :src=flagElement(serie)> <br>
-         <!--./assets/it.png-->
+        
+         <!-- <img :src="flagElement(serie)"> <br>-->
          {{serie.vote_average}}
         </div>
       </li>
@@ -50,21 +53,20 @@ export default {
       searched: "",
       movies: [],
       series: [],
+      flags: ['it', 'en']
     };
   },
 
-  computed: {
-    flagElement(elemento){
-      return require(`..src/assets/${elemento.original_language}.png`)
-    },
-    
-  },
-
   components: {
+  
     
-  },
+    },
 
   methods: {
+    flagElement(lang){
+      
+      return require(`./assets/${lang}.png`)
+    },
     getMovies(){
     axios
       .get(

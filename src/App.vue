@@ -11,7 +11,7 @@
           {{movie.title}} <br>
           {{movie.original_title}} <br>
           {{movie.original_language}} <br>
-          <img :src= "`./assets/${movie.original_language}.png`"> <br> 
+          <img :src=flagElement(movie)> <br> 
           {{movie.vote_average}}
         </div>
       </li> <!--./assets/logo.png-->
@@ -23,7 +23,7 @@
          {{serie.name}} <br>
          {{serie.original_name}} <br>
          {{serie.original_language}} <br>
-         <img :src="`./assets/${serie.original_language}.png`"> <br>
+         <img :src=flagElement(serie)> <br>
          {{serie.vote_average}}
         </div>
       </li>
@@ -51,7 +51,16 @@ export default {
     };
   },
 
-  components: {},
+  computed: {
+    flagElement(elemento){
+      return require(`../assets/${elemento.original_language}.png`)
+    },
+    
+  },
+
+  components: {
+    
+  },
 
   methods: {
     getMovies(){

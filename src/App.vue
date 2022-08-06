@@ -5,12 +5,13 @@
     <button @click="getMovies(); getTvSeries();">Cerca
     </button>
 
-    <ul id="films">
+    <ul id="films" class="d-flex m-auto">
       <li v-for="movie in movies" :key="movie.id" class="cards">
         <div>
           <div>{{movie.title}} </div>
           {{movie.original_title}} 
           <div>
+            <img :src="(movie.poster_path)" alt="">
             <img v-if="flags.includes(movie.original_language)" :src="flagElement(movie.original_language)">
             <span v-else>{{movie.original_language}} </span>
           </div>
@@ -21,7 +22,7 @@
       </li> 
     </ul>
 
-    <ul id="serie-tv">
+    <ul id="serie-tv" class="d-flex m-auto">
       <li v-for="serie in series" :key="serie.id" class="cards">
         <div>
          {{serie.name}} <br>
@@ -85,22 +86,39 @@ export default {
       .then((response) => {
         this.series = response.data.results;
       });
-    }
-    
-  },
+    },
+
+  }
 };
 </script>
 
 <style lang="scss">
+
+.m-auto{
+  margin: 0 auto;
+  width: 80%;
+}
+
+ul {
+  list-style-type: none;
+}
 
 img {
   height: 90px;
   width: 100px;
 }
 
+.d-flex{
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .cards {
   height: 300px;
-  width: 250px;
+  margin: 20px;
+  background-color: black;
+  width: 300px;
+
 }
 
 </style>

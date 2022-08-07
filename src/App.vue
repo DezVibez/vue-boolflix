@@ -2,7 +2,7 @@
   <div id="app">
     <input type="text" v-model="searched" /> 
     
-    <button @click="getMovies(); getTvSeries();">Cerca
+    <button @click="getResult()">Cerca
     </button>
 
     <ul id="films" class="d-flex m-auto">
@@ -68,25 +68,19 @@ export default {
       
       return require(`./assets/${lang}.png`)
     },
-    getMovies(){
+    getResult(){
     axios
       .get(
-        `${this.baseUri}${this.moviesEP}?api_key=${this.apiKey}&query=${this.searched}`
-      )
-      .then((response) => {
-        this.movies = response.data.results;
-      });
-    },
-
-    getTvSeries(){
-    axios
-      .get(
+        `${this.baseUri}${this.moviesEP}?api_key=${this.apiKey}&query=${this.searched}`+
         `${this.baseUri}${this.seriesEP}?api_key=${this.apiKey}&query=${this.searched}`
       )
       .then((response) => {
+        this.movies = response.data.results;
         this.series = response.data.results;
       });
     },
+
+    
 
   }
 };
@@ -114,11 +108,10 @@ img {
 }
 
 .cards {
-  height: 300px;
-  margin: 20px;
+  height: 500px;
+  margin: 30px;
   background-color: black;
   width: 300px;
-
 }
 
 </style>

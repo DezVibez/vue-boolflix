@@ -25,12 +25,17 @@
     <ul id="serie-tv" class="d-flex m-auto">
       <li v-for="serie in series" :key="serie.id" class="cards">
         <div>
-         {{serie.name}} <br>
-         {{serie.original_name}} <br>
-         {{serie.original_language}} <br>
-        
-         <!-- <img :src="flagElement(serie)"> <br>-->
-         {{serie.vote_average}}
+          <div>{{serie.name}} </div>
+          {{serie.original_name}} 
+          <div>
+            <img :src="(serie.poster_path)" alt="">
+            <img v-if="flags.includes(serie.original_language)" :src="flagElement(serie.original_language)">
+            <span v-else>{{serie.original_language}} </span>
+          </div>
+          
+          <!--./assets/en.png-->
+          {{serie.vote_average}}
+         
         </div>
       </li>
     </ul>
@@ -54,7 +59,7 @@ export default {
       searched: "",
       movies: [],
       series: [],
-      flags: ['it', 'en']
+      flags: ['it', 'en',]
     };
   },
 

@@ -2,7 +2,7 @@
   <div id="app">
     <input type="text" v-model="searched" /> 
     
-    <button @click="getResult()">Cerca
+    <button @click="getResult()" @enter="getResult()">Cerca
     </button>
 
     <ul id="films" class="d-flex m-auto">
@@ -11,7 +11,7 @@
           <div>{{movie.title}} </div>
           {{movie.original_title}} 
           <div>
-            <img :src="(movie.poster_path)" alt="">
+            <img :src="`https://image.tmdb.org/t/p/w342/` + `${(movie.poster_path)}`" :alt="movie.title">
             <img v-if="flags.includes(movie.original_language)" :src="flagElement(movie.original_language)">
             <span v-else>{{movie.original_language}} </span>
           </div>
@@ -28,7 +28,7 @@
           <div>{{serie.name}} </div>
           {{serie.original_name}} 
           <div>
-            <img :src="(serie.poster_path)" alt="">
+            <img :src="`https://image.tmdb.org/t/p/w342/` + `${(serie.poster_path)}`" :alt="serie.name">
             <img v-if="flags.includes(serie.original_language)" :src="flagElement(serie.original_language)">
             <span v-else>{{serie.original_language}} </span>
           </div>
@@ -113,6 +113,7 @@ img {
 }
 
 .cards {
+  color: white;
   height: 500px;
   margin: 30px;
   background-color: black;

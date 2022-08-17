@@ -14,11 +14,12 @@
             <img class="poster" :src="`https://image.tmdb.org/t/p/w342/` + `${(movie.poster_path)}`" :alt="movie.title">
             <img class="flag" v-if="flags.includes(movie.original_language)" :src="flagElement(movie.original_language)">
             <span v-else>{{movie.original_language}} </span>
-            <h1><font-awesome-icon icon=”Star” /></h1>
+            <h1><font-awesome-icon icon=”faStar” /></h1>
           </div>
           
           <!--./assets/en.png-->
-          {{movie.vote_average}}
+          {{getRating(movie)}}
+          
         </div>
       </li> 
     </ul>
@@ -35,7 +36,7 @@
           </div>
           
           <!--./assets/en.png-->
-          {{serie.vote_average}}
+          {{getRating(serie)}}
          
         </div>
       </li>
@@ -85,6 +86,14 @@ export default {
         this.series = response.data.results;
       });
     },
+    getRating(rate){
+     
+     let rateResult = Math.floor((rate.vote_average) / 2)
+
+     if (rateResult == 0 ) {rateResult == rateResult + 1}
+
+     else return rateResult
+    }
 
     
 

@@ -11,9 +11,10 @@
           <div>{{movie.title}} </div>
           {{movie.original_title}} 
           <div>
-            <img :src="`https://image.tmdb.org/t/p/w342/` + `${(movie.poster_path)}`" :alt="movie.title">
-            <img v-if="flags.includes(movie.original_language)" :src="flagElement(movie.original_language)">
+            <img class="poster" :src="`https://image.tmdb.org/t/p/w342/` + `${(movie.poster_path)}`" :alt="movie.title">
+            <img class="flag" v-if="flags.includes(movie.original_language)" :src="flagElement(movie.original_language)">
             <span v-else>{{movie.original_language}} </span>
+            <h1><font-awesome-icon icon=”Star” /></h1>
           </div>
           
           <!--./assets/en.png-->
@@ -28,8 +29,8 @@
           <div>{{serie.name}} </div>
           {{serie.original_name}} 
           <div>
-            <img :src="`https://image.tmdb.org/t/p/w342/` + `${(serie.poster_path)}`" :alt="serie.name">
-            <img v-if="flags.includes(serie.original_language)" :src="flagElement(serie.original_language)">
+            <img class="poster" :src="`https://image.tmdb.org/t/p/w342/` + `${(serie.poster_path)}`" :alt="serie.name">
+            <img class="flag" v-if="flags.includes(serie.original_language)" :src="flagElement(serie.original_language)">
             <span v-else>{{serie.original_language}} </span>
           </div>
           
@@ -59,7 +60,7 @@ export default {
       searched: "",
       movies: [],
       series: [],
-      flags: ['it', 'en',]
+      flags: ['it', 'en']
     };
   },
 
@@ -103,8 +104,20 @@ ul {
 }
 
 img {
-  height: 90px;
+  height: 100px;
   width: 100px;
+}
+
+.flag{
+  width: 10%;
+  height: auto;
+  display: block
+}
+
+.poster{
+  width: 80%;
+  height: auto;
+  margin: 0 auto;
 }
 
 .d-flex{

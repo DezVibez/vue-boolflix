@@ -12,7 +12,7 @@
           {{movie.original_title}} 
           <div>
             <img class="poster" v-if="movie.poster_path" :src="`https://image.tmdb.org/t/p/w342/` + `${(movie.poster_path)}`" :alt="movie.title">
-            <img v-else src="./assets/imageNotFound.jpeg" alt="">
+            <img class= "not-found" v-else src="./assets/imageNotFound.jpeg" alt="">
             <img class="flag" v-if="flags.includes(movie.original_language)" :src="flagElement(movie.original_language)">
             <span v-else>{{movie.original_language}} </span>
             <h1><font-awesome-icon icon=”faStar” /></h1>
@@ -31,7 +31,8 @@
           <div>{{serie.name}} </div>
           {{serie.original_name}} 
           <div>
-            <img class="poster" :src="`https://image.tmdb.org/t/p/w342/` + `${(serie.poster_path)}`" :alt="serie.name">
+            <img class="poster" v-if="serie.poster_path" :src="`https://image.tmdb.org/t/p/w342/` + `${(serie.poster_path)}`" :alt="serie.name">
+            <img class= "not-found" v-else src="./assets/imageNotFound.jpeg" alt="">
             <img class="flag" v-if="flags.includes(serie.original_language)" :src="flagElement(serie.original_language)">
             <span v-else>{{serie.original_language}} </span>
           </div>
@@ -104,6 +105,12 @@ export default {
 
 <style lang="scss">
 
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .m-auto{
   margin: 0 auto;
   width: 80%;
@@ -125,9 +132,13 @@ img {
 }
 
 .poster{
-  width: 80%;
+  width: 100%;
   height: auto;
-  margin: 0 auto;
+}
+
+.not-found{
+  width: 100%;
+  height: 100%;
 }
 
 .d-flex{
@@ -137,6 +148,7 @@ img {
 
 .cards {
   color: white;
+  padding: 10px;
   height: 500px;
   margin: 30px;
   background-color: black;

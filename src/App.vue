@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <input type="text" v-model="searched" /> 
+    <input type="text" v-model="searched" @keyup.enter="getResult()" /> 
     
-    <button @click="getResult()" @enter="getResult()">Cerca
+    <button @click="getResult()" >Cerca
     </button>
 
     <ul id="films" class="d-flex m-auto">
@@ -11,7 +11,8 @@
           <div>{{movie.title}} </div>
           {{movie.original_title}} 
           <div>
-            <img class="poster" :src="`https://image.tmdb.org/t/p/w342/` + `${(movie.poster_path)}`" :alt="movie.title">
+            <img class="poster" v-if="movie.poster_path" :src="`https://image.tmdb.org/t/p/w342/` + `${(movie.poster_path)}`" :alt="movie.title">
+            <img v-else src="./assets/imageNotFound.jpeg" alt="">
             <img class="flag" v-if="flags.includes(movie.original_language)" :src="flagElement(movie.original_language)">
             <span v-else>{{movie.original_language}} </span>
             <h1><font-awesome-icon icon=”faStar” /></h1>

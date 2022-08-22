@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-
+    <!--parte relativa alla ricerca dei titoli-->
     <div class="nav">
 
       <div>
@@ -23,6 +23,8 @@
 
     <main>
 
+      <!--Parte dedicata ai films-->
+
       <ul id="films" class="d-flex m-auto">
         <li v-for="movie in movies" :key="movie.id" class="cards">
           <div class="visibility">
@@ -31,21 +33,30 @@
               <img class="not-found" v-else src="./assets/imageNotFound.jpeg" :alt="movie.title">
             </div>
 
+
+            <!--le info sono le informazione relative alle serie, sono sotto l'immagine e vengono mostrate in hoover sulle cards-->
             <div class="infos">
 
-              <div>{{movie.title}} </div>
-              <div>{{movie.original_title}} </div>
+              <div class="m-10">Titolo: {{movie.title}} </div>
+              <div class="m-10">Titolo originale: {{movie.original_title}} </div>
 
-              <img class="flag" v-if="flags.includes(movie.original_language)" :src="flagElement(movie.original_language)">
-              <span v-else>Linguaggio originale: {{movie.original_language}} </span>
+              <img class="flag m-10" v-if="flags.includes(movie.original_language)" :src="flagElement(movie.original_language)">
+              <div class="m-10" v-else> Linguaggio originale: {{movie.original_language}} </div>
+              
+              <div class="m-10">Rating: {{getRating(movie)}}</div>
+
+              <p class="overview m-10">
+                {{movie.overview}}
+              </p>
               
               
-              <span>Rating: {{getRating(movie)}}</span>
             </div>
             
           </div>
         </li> 
       </ul>
+
+      <!--Parte dedicata alle Serie-->
 
       <ul id="serie-tv" class="d-flex m-auto">
         <li v-for="serie in series" :key="serie.id" class="cards">
@@ -56,15 +67,23 @@
               
             </div>
 
-            <div class="infos">
-              <div>{{serie.name}} </div>
-              <div>{{serie.original_name}} </div>
+            <!--le info sono le informazione relative alle serie, sono sotto l'immagine e vengono mostrate in hoover sulle cards-->
 
-              <img class="flag" v-if="flags.includes(serie.original_language)" :src="flagElement(serie.original_language)">
-              <span v-else>Linguaggio originale: {{serie.original_language}} </span>
+            <div class="infos">
+              <div class="m-10">Titolo: {{serie.name}} </div>
+              <div class="m-10">Titolo originale: {{serie.original_name}} </div>
+
+              <img class="flag m-10" v-if="flags.includes(serie.original_language)" :src="flagElement(serie.original_language)">
+              <div class="m-10" v-else>Linguaggio originale: {{serie.original_language}} </div>
+
+              <div class="m-10">Rating: {{getRating(serie)}}</div>
+
+              <p class="overview m-10">
+                {{serie.overview}}
+              </p>
             
             
-              <span>Rating: {{getRating(serie)}}</span>
+              
             </div>
             
           
@@ -120,11 +139,9 @@ export default {
     },
     getRating(rate){
      
-     let rateResult = Math.floor((rate.vote_average) / 2)
+     let rateResult = (Math.floor((rate.vote_average) / 2) + 1)
 
-     if (rateResult == 0 ) {rateResult == rateResult + 1}
-
-     else return rateResult
+     return rateResult
     },
 
 
@@ -140,6 +157,10 @@ export default {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+.m-10 {
+  margin: 10px;
 }
 
 .nav{
@@ -175,9 +196,14 @@ ul {
 }
 
 .flag{
-  width: 10%;
+  
+  width: 18%;
   height: auto;
   display: block
+}
+
+.overview {
+ 
 }
 
 .poster{
@@ -185,12 +211,8 @@ ul {
 }
 
 .poster img{
-  height: 428px;
-  width: 279px;
-}
-
-.poster-image {
-  background-position: cover;
+  height: 448px;
+  width: 298px;
 }
 
 .visibility:hover .poster{
@@ -208,8 +230,8 @@ ul {
 }
 
 .not-found{
-  height: 428px;
-  width: 279px;
+  height: 448px;
+  width: 298px;
 }
 
 .d-flex{
@@ -220,11 +242,11 @@ ul {
 .cards {
   border: 1px solid white;
   color: white;
-  padding: 10px;
   margin: 30px;
   background-color: black;
   width: 300px;
   height: 450px;
+  overflow: scroll;
 }
 
 </style>

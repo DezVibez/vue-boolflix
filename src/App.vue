@@ -49,18 +49,24 @@
 
       <ul id="serie-tv" class="d-flex m-auto">
         <li v-for="serie in series" :key="serie.id" class="cards">
-          <div>
-            <div>{{serie.name}} </div>
-            <div>{{serie.original_name}} </div>
-            <div>
-              <img class="poster" v-if="serie.poster_path" :src="`https://image.tmdb.org/t/p/w342/` + `${(serie.poster_path)}`" :alt="serie.name">
+          <div class="visibility">
+            <div class="poster">
+              <img class="poster-image" v-if="serie.poster_path" :src="`https://image.tmdb.org/t/p/w342/` + `${(serie.poster_path)}`" :alt="serie.name">
               <img class= "not-found" v-else src="./assets/imageNotFound.jpeg" alt="">
+              
+            </div>
+
+            <div class="infos">
+              <div>{{serie.name}} </div>
+              <div>{{serie.original_name}} </div>
+
               <img class="flag" v-if="flags.includes(serie.original_language)" :src="flagElement(serie.original_language)">
-              <span v-else>{{serie.original_language}} </span>
+              <span v-else>Linguaggio originale: {{serie.original_language}} </span>
+            
+            
+              <span>Rating: {{getRating(serie)}}</span>
             </div>
             
-            
-            {{getRating(serie)}}
           
           </div>
         </li>

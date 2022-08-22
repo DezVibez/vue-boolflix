@@ -11,9 +11,9 @@
 
 
       <div>
-        <input type="text" v-model="searched" @keyup.enter="getResult()" /> 
+        <input type="text" v-model="searched" @keyup.enter="getMovies(); getSeries()" /> 
     
-        <button @click="getResult()">Cerca
+        <button @click="getMovies(); getSeries()">Cerca
         </button>
       </div>
 
@@ -70,8 +70,8 @@
             <!--le info sono le informazione relative alle serie, sono sotto l'immagine e vengono mostrate in hoover sulle cards-->
 
             <div class="infos">
-              <div class="m-10">Titolo: {{serie.name}} </div>
-              <div class="m-10">Titolo originale: {{serie.original_name}} </div>
+              <div class="m-10">Titolo: {{serie.name}}</div>
+              <div class="m-10">Titolo originale: {{serie.original_name}}</div>
 
               <img class="flag m-10" v-if="flags.includes(serie.original_language)" :src="flagElement(serie.original_language)">
               <div class="m-10" v-else>Linguaggio originale: {{serie.original_language}} </div>
@@ -126,14 +126,22 @@ export default {
       
       return require(`./assets/${lang}.png`)
     },
-    getResult(){
+    getMovies(){
     axios
       .get(
-        `${this.baseUri}${this.moviesEP}?api_key=${this.apiKey}&query=${this.searched}`+
-        `${this.baseUri}${this.seriesEP}?api_key=${this.apiKey}&query=${this.searched}`
+        `${this.baseUri}${this.moviesEP}?api_key=${this.apiKey}&query=${this.searched}`
       )
       .then((response) => {
         this.movies = response.data.results;
+      })
+      },
+
+      getSeries(){
+      axios
+      .get(
+       `${this.baseUri}${this.seriesEP}?api_key=${this.apiKey}&query=${this.searched}`
+      )
+      .then((response) => {
         this.series = response.data.results;
       });
     },

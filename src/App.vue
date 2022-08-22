@@ -1,48 +1,72 @@
 <template>
   <div id="app">
-    <input type="text" v-model="searched" @keyup.enter="getResult()" /> 
+
+    <div class="nav">
+
+      <div>
+        <h1>
+          NETFLIX
+        </h1>
+      </div>
+
+
+      <div>
+        <input type="text" v-model="searched" @keyup.enter="getResult()" /> 
     
-    <button @click="getResult()" >Cerca
-    </button>
+        <button @click="getResult()">Cerca
+        </button>
+      </div>
 
-    <ul id="films" class="d-flex m-auto">
-      <li v-for="movie in movies" :key="movie.id" class="cards">
-        <div>
-          <div>{{movie.title}} </div>
-          {{movie.original_title}} 
-          <div>
-            <img class="poster" v-if="movie.poster_path" :src="`https://image.tmdb.org/t/p/w342/` + `${(movie.poster_path)}`" :alt="movie.title">
-            <img class= "not-found" v-else src="./assets/imageNotFound.jpeg" alt="">
-            <img class="flag" v-if="flags.includes(movie.original_language)" :src="flagElement(movie.original_language)">
-            <span v-else>{{movie.original_language}} </span>
-            <h1><font-awesome-icon icon=”faStar” /></h1>
-          </div>
-          
-          <!--./assets/en.png-->
-          {{getRating(movie)}}
-          
-        </div>
-      </li> 
-    </ul>
+    
 
-    <ul id="serie-tv" class="d-flex m-auto">
-      <li v-for="serie in series" :key="serie.id" class="cards">
-        <div>
-          <div>{{serie.name}} </div>
-          {{serie.original_name}} 
-          <div>
-            <img class="poster" v-if="serie.poster_path" :src="`https://image.tmdb.org/t/p/w342/` + `${(serie.poster_path)}`" :alt="serie.name">
-            <img class= "not-found" v-else src="./assets/imageNotFound.jpeg" alt="">
-            <img class="flag" v-if="flags.includes(serie.original_language)" :src="flagElement(serie.original_language)">
-            <span v-else>{{serie.original_language}} </span>
+    </div>
+
+    <main>
+
+      <ul id="films" class="d-flex m-auto">
+        <li v-for="movie in movies" :key="movie.id" class="cards">
+          <div class="visibility">
+            <div class="poster">
+              <img class="poster-image" v-if="movie.poster_path" :src="`https://image.tmdb.org/t/p/w342/` + `${(movie.poster_path)}`" :alt="movie.title">
+              <img class="not-found" v-else src="./assets/imageNotFound.jpeg" :alt="movie.title">
+            </div>
+
+            <div class="infos">
+
+              <div>{{movie.title}} </div>
+              <div>{{movie.original_title}} </div>
+
+              <img class="flag" v-if="flags.includes(movie.original_language)" :src="flagElement(movie.original_language)">
+              <span v-else>Linguaggio originale: {{movie.original_language}} </span>
+              
+              
+              <span>Rating: {{getRating(movie)}}</span>
+            </div>
+            
           </div>
+        </li> 
+      </ul>
+
+      <ul id="serie-tv" class="d-flex m-auto">
+        <li v-for="serie in series" :key="serie.id" class="cards">
+          <div>
+            <div>{{serie.name}} </div>
+            <div>{{serie.original_name}} </div>
+            <div>
+              <img class="poster" v-if="serie.poster_path" :src="`https://image.tmdb.org/t/p/w342/` + `${(serie.poster_path)}`" :alt="serie.name">
+              <img class= "not-found" v-else src="./assets/imageNotFound.jpeg" alt="">
+              <img class="flag" v-if="flags.includes(serie.original_language)" :src="flagElement(serie.original_language)">
+              <span v-else>{{serie.original_language}} </span>
+            </div>
+            
+            
+            {{getRating(serie)}}
           
-          <!--./assets/en.png-->
-          {{getRating(serie)}}
-         
-        </div>
-      </li>
-    </ul>
+          </div>
+        </li>
+      </ul>
+
+    </main>
 
     
   </div>
@@ -63,7 +87,7 @@ export default {
       searched: "",
       movies: [],
       series: [],
-      flags: ['it', 'en']
+      flags: ['it', 'en'],
     };
   },
 
@@ -95,7 +119,8 @@ export default {
      if (rateResult == 0 ) {rateResult == rateResult + 1}
 
      else return rateResult
-    }
+    },
+
 
     
 
@@ -111,6 +136,29 @@ export default {
   box-sizing: border-box;
 }
 
+.nav{
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100px;
+  background-color: black;
+}
+
+.nav input{
+  margin: 0 10px;
+}
+
+h1{
+  font-size: 30px;
+  color: red;
+}
+
+main {
+  background-color:rgb(37, 37, 41);;
+  min-height: 100vh;
+}
+
 .m-auto{
   margin: 0 auto;
   width: 80%;
@@ -120,11 +168,6 @@ ul {
   list-style-type: none;
 }
 
-img {
-  height: 100px;
-  width: 100px;
-}
-
 .flag{
   width: 10%;
   height: auto;
@@ -132,13 +175,35 @@ img {
 }
 
 .poster{
+  position: absolute
+}
+
+.poster img{
+  height: 428px;
+  width: 279px;
+}
+
+.poster-image {
+  background-position: cover;
+}
+
+.visibility:hover .poster{
+  display: none
+}
+
+.infos {
+  display: none;
+}
+
+.infos {
+  display: inline-block;
   width: 100%;
-  height: auto;
+  height: 100%;
 }
 
 .not-found{
-  width: 100%;
-  height: 100%;
+  height: 428px;
+  width: 279px;
 }
 
 .d-flex{
@@ -147,12 +212,13 @@ img {
 }
 
 .cards {
+  border: 1px solid white;
   color: white;
   padding: 10px;
-  height: 500px;
   margin: 30px;
   background-color: black;
   width: 300px;
+  height: 450px;
 }
 
 </style>

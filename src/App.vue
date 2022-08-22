@@ -43,11 +43,15 @@
               <img class="flag m-10" v-if="flags.includes(movie.original_language)" :src="flagElement(movie.original_language)">
               <div class="m-10" v-else> Linguaggio originale: {{movie.original_language}} </div>
               
-              <div class="m-10">Rating: {{getRating(movie)}}</div>
+              <div class="m-10">Rating:
+              <i v-for="n in 5" :key="n" class="fa-star" :class=" getRating(movie) >= n ? `fa-solid` : `fa-regular`" ></i>
+              </div>
 
               <p class="overview m-10">
                 {{movie.overview}}
               </p>
+
+              
               
               
             </div>
@@ -76,7 +80,9 @@
               <img class="flag m-10" v-if="flags.includes(serie.original_language)" :src="flagElement(serie.original_language)">
               <div class="m-10" v-else>Linguaggio originale: {{serie.original_language}} </div>
 
-              <div class="m-10">Rating: {{getRating(serie)}}</div>
+              <div class="m-10">Rating:
+              <i v-for="n in 5" :key="n" class="fa-star" :class=" getRating(serie) >= n ? `fa-solid` : `fa-regular`" ></i>
+              </div>
 
               <p class="overview m-10">
                 {{serie.overview}}
@@ -116,10 +122,7 @@ export default {
     };
   },
 
-  components: {
-  
-    
-    },
+  components: {},
 
   methods: {
     flagElement(lang){
@@ -147,7 +150,7 @@ export default {
     },
     getRating(rate){
      
-     let rateResult = (Math.floor((rate.vote_average) / 2) + 1)
+     let rateResult = Math.ceil((rate.vote_average) / 2)
 
      return rateResult
     },
